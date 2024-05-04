@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &74219617905359122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2778218311116220861}
+  - component: {fileID: 3087332238091387312}
+  m_Layer: 0
+  m_Name: Traffic Light Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2778218311116220861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74219617905359122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.377102, y: 5.0362244, z: -7.907976}
+  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3087332238091387312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74219617905359122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0eae206fcb1cf0479a933ee0a50fb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redLightsForRight: {fileID: 2100000, guid: c18fadd284227d948a84440802bbbf4e, type: 2}
+  redLightsForLeft: {fileID: 2100000, guid: 1d794e49ceab6be4ba41d6bca1b9e3d8, type: 2}
+  greenLightsForLeft: {fileID: 2100000, guid: 669501b081604114ea25f57fb7c8681c, type: 2}
+  greenLightsForRight: {fileID: 2100000, guid: 86cd9cd3bd4857b4ca8d7e93ad0535e0, type: 2}
+  yellowLights: {fileID: 2100000, guid: 71222de30f651a1408b59e3afbfe99ea, type: 2}
+  isRedForRight: 0
+  isRedForLeft: 0
+  carPrefab: {fileID: 444113755081821830, guid: 1bf9eacace796634fa18dc1947e676ef,
+    type: 3}
+  carListRight: []
+  carListLeft: []
+  R1_1: []
+  R1_2: []
+  R2_1: []
+  R2_2: []
+  L1_1: []
+  L1_2: []
+  L2_1: []
+  L2_2: []
+  rightLightPaths:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  leftLightPaths:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  triggerValue:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Trigger Value
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d00c6a01-ba5d-4044-878b-70fbe9771df2
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
