@@ -41,31 +41,26 @@ public class GetRotation : MonoBehaviour
 		if (15>degree)
 		{
 			rotState = rotation.MP;
-			Debug.Log("Mega Planet");
 		}
 		if (degree>345)
 		{
 			rotState = rotation.MP;
 
-			Debug.Log("Mega Planet");
 		}
 		if (105 > degree && degree > 75)
 		{
 			rotState = rotation.IP;
 
-			Debug.Log("It park");
 		}
 		if (195 > degree && degree > 165)
 		{
 			rotState = rotation.HY;
 
-			Debug.Log("Haykal");
 		}
 		if (285 > degree && degree > 255)
 		{
 			rotState = rotation.INH;
 
-			Debug.Log("Inha");
 		}
 	}
 }

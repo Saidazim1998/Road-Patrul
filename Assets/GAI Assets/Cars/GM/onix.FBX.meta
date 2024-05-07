@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: 98481f50e36478342a70803dcbeee32b
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ceramic
+    second: {fileID: 2100000, guid: ea90b24d87a768f48b1a18f347cb11c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frontbump.1
+    second: {fileID: 2100000, guid: 4d81afd8cab72584196a450f3e438df6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frontbump.2
+    second: {fileID: 2100000, guid: b7e9dcb0b76b6464bbaebbd9fb5b4abc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frontbump.3
+    second: {fileID: 2100000, guid: d21e3f7bc0f2b7d4c989516fe9a3bdd8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: frontbump.4
+    second: {fileID: 2100000, guid: cba1164c3eca6d84186657119c91e241, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: e3cf6395d66bb4d468099487d11a254f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: group_1.1
+    second: {fileID: 2100000, guid: 47973b1f61c3e8e419e6b2e1df189a86, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: group_5.0
+    second: {fileID: 2100000, guid: 4a755348c78d3274bbee56939ef3cd66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: group_6.0
+    second: {fileID: 2100000, guid: 510a75069a0e7f44789a2693d3ff70e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: instance_0.0
+    second: {fileID: 2100000, guid: 777d1cf419e7fac47a84a019c3ee18b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: instance_2.2
+    second: {fileID: 2100000, guid: dae6dd0d53434f64db5f533290de47ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_1.0
+    second: {fileID: 2100000, guid: e4bd4bbb6274a254c9578dc8174534f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_1.2
+    second: {fileID: 2100000, guid: 98998666ccfe5e843bef2e89da6150e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_1.3
+    second: {fileID: 2100000, guid: d653b13890d552848a38a6427534ac2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_2.0
+    second: {fileID: 2100000, guid: 4eda3d09695367649bc76841fa09e96a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_21.1
+    second: {fileID: 2100000, guid: 3440f028fa8de8042a9bb647496f01b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_4.0
+    second: {fileID: 2100000, guid: 984cc3ff4dde2844fab9d39149ce91d5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_4.1
+    second: {fileID: 2100000, guid: c889621711909254b8ec48f3449d8a54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: onix_90_8.0
+    second: {fileID: 2100000, guid: a9456902a53610048b9f63ad34986ba9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: primary
+    second: {fileID: 2100000, guid: cafb12c5524c14b4bb02895b934de754, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right front light
+    second: {fileID: 2100000, guid: 232b2957ed9ca3849884810f1c92893e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: right rear light
+    second: {fileID: 2100000, guid: 74ca77f6a03caf4448f60b0278c2053a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.0
+    second: {fileID: 2100000, guid: 2261a224cb199684b84bc952b535f49a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.004
+    second: {fileID: 2100000, guid: 7c039c317d00a1a4784a22d29da9e37c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.005
+    second: {fileID: 2100000, guid: 4a6b237ac60778e47b1df85d6774e081, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.006
+    second: {fileID: 2100000, guid: e0e0b0fe37efd674ea92d1cd02efd3aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.007
+    second: {fileID: 2100000, guid: 0dae5a73227ff8e42931d863ed980d95, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.008
+    second: {fileID: 2100000, guid: 2a31e8299407a7949a3da60310789e93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.009
+    second: {fileID: 2100000, guid: b1112f3448add4c46b3245d9c5c0d84e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.010
+    second: {fileID: 2100000, guid: 6000196a3e9264844b6e99566c02dca3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.011
+    second: {fileID: 2100000, guid: 282021be10b193e418514edb6b9a446c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.012
+    second: {fileID: 2100000, guid: 8d6833d275374334997579d2cfd52d66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.013
+    second: {fileID: 2100000, guid: f6f688772346c554887fbda485989a4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.014
+    second: {fileID: 2100000, guid: 416c380acc6359c4a8321a3c955d6789, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.015
+    second: {fileID: 2100000, guid: 098780ac2abd3bc4dbad806578afc771, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.1
+    second: {fileID: 2100000, guid: e00cdbf439802154493108fc9aa7f2be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.2
+    second: {fileID: 2100000, guid: c11cd7ee6cf5c8347a2290b74091f440, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheel.3
+    second: {fileID: 2100000, guid: 500274052b06f6d40bc70279965c23be, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

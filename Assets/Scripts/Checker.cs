@@ -1,19 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum PalkaState
 {
 	front,
 	top,
+	right,
 	idle
+}
+public enum RightRot
+{
+    MP,
+    IP,
+    HY,
+    INH,
+	none
 }
 public class Checker : MonoBehaviour
 {
 	public AudioSource winning;
-
-	public PalkaState state;
+    public InputActionProperty triggerValue;
+	public LayerMask layerMask;
+    public PalkaState state;
+	public RightRot rightRotState;
 	public static Checker instance;
+	bool isChecked = false;
 	private void Awake()
 	{
 		if(instance == null)
@@ -28,41 +41,144 @@ public class Checker : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		state = PalkaState.idle;
+        rightRotState = RightRot.none;
+
+        state = PalkaState.idle;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		
+        float value = triggerValue.action.ReadValue<float>();
+		if (value > 0.8f)
+		{
+			isChecked = true;
+            RaycastHit hit;
+
+            Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            if (Physics.Raycast(origin, transform.TransformDirection(Vector3.up), out hit, 20, layerMask))
+            {
+                Debug.DrawRay(origin, transform.TransformDirection(Vector3.up) * hit.distance, Color.yellow);
+                if (hit.collider.gameObject.CompareTag("MP"))
+                {
+                    rightRotState = RightRot.MP;
+                    Debug.Log("MP");
+                }
+                else if (hit.collider.gameObject.CompareTag("INH"))
+                {
+                    rightRotState = RightRot.INH;
+
+
+                    Debug.Log("INH");
+                }
+                else if (hit.collider.gameObject.CompareTag("IP"))
+                {
+                    rightRotState = RightRot.IP;
+
+
+                    Debug.Log("IP");
+                }
+                else if (hit.collider.gameObject.CompareTag("HY"))
+                {
+                    rightRotState = RightRot.HY;
+
+
+                    Debug.Log("HY");
+                }
+                else
+                {
+                    rightRotState = RightRot.none;
+
+                }
+            }
+        }
+		else
+		{
+			if (isChecked && CheckerLeft.instance.leftRotState == RightRot.none)
+			{
+				isChecked = false;
+				// start corutine
+				StartCoroutine(StartWithDelay());
+			}
+			rightRotState = RightRot.none;
+		}
+       
+    }
+	IEnumerator StartWithDelay()
+	{
+		yield return new WaitForSeconds(5f);
+		if (state != PalkaState.top)
+		{
+			foreach (Follower item in TrafficLightManager.instance.R1)
+			{
+				item.isStopForEvery = false;
+			}
+            foreach (Follower item in TrafficLightManager.instance.R2)
+            {
+                item.isStopForEvery = false;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L1)
+            {
+                item.isStopForEvery = false;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L2)
+            {
+                item.isStopForEvery = false;
+            }
+        }
 	}
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.CompareTag("FrontChecker"))
-		{
-		   Debug.Log("Front Inside");
-			state = PalkaState.front;
-		}
-		if (other.CompareTag("TopChecker"))
+        if (other.CompareTag("TopChecker"))
 		{
 			state = PalkaState.top;
-			Debug.Log("Top Inside");
-			foreach (Follower item in TrafficLightManager.instance.carListRight)
-			{
-				item.isStopForEvery = true;
-			}
-			foreach (Follower item in TrafficLightManager.instance.carListLeft)
-			{
-				item.isStopForEvery = true;
-			}
-		}
+            foreach (Follower item in TrafficLightManager.instance.R1)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in TrafficLightManager.instance.R2)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L1)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L2)
+            {
+                item.isStopForEvery = true;
+            }
+        }
 	}
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.CompareTag("FrontChecker") || other.CompareTag("TopChecker"))
+		if (other.CompareTag("TopChecker"))
 		{
-			Debug.Log("Front Inside");
 			state = PalkaState.idle;
-		}
+			StartCoroutine(Delay());
+        }
+	}
+	IEnumerator Delay()
+	{
+		yield return new WaitForSeconds(5f);
+		if(Checker.instance.rightRotState == RightRot.none)
+		{
+            foreach (Follower item in TrafficLightManager.instance.R1)
+            {
+                item.isStopForEvery = false;
+            }
+            foreach (Follower item in TrafficLightManager.instance.R2)
+            {
+                item.isStopForEvery = false;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L1)
+            {
+                item.isStopForEvery = false;
+            }
+            foreach (Follower item in TrafficLightManager.instance.L2)
+            {
+                item.isStopForEvery = false;
+            }
+        }
 	}
 }

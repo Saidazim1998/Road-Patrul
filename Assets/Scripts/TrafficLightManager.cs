@@ -5,6 +5,12 @@ using PathCreation;
 using UnityEngine.InputSystem;
 public class TrafficLightManager : MonoBehaviour
 {
+    public int countCarMP = 0;
+    public int countCarINH = 0;
+    public int countCarHY = 0;
+    public int countCarIP = 0;
+    public GameObject gameOverUI;
+    public AudioSource audioSource;
     public Material redLightsForRight;
     public Material redLightsForLeft;
     public Material greenLightsForLeft;
@@ -18,19 +24,15 @@ public class TrafficLightManager : MonoBehaviour
     public FollowerForSpecial ambulancePrefab;
     public FollowerForSpecial pojarPrefab;
     public FollowerForSpecial mercPrefab;
+    public FollowerForSpecial policePrefab;
     FollowerForSpecial ambulance;
     FollowerForSpecial pojar;
     FollowerForSpecial merc;
-    public List<Follower> carListRight;
-    public List<Follower> carListLeft;
-    public List<Follower> R1_1;
-    public List<Follower> R1_2;
-    public List<Follower> R2_1;
-    public List<Follower> R2_2;
-    public List<Follower> L1_1;
-    public List<Follower> L1_2;
-    public List<Follower> L2_1;
-    public List<Follower> L2_2;
+    FollowerForSpecial police;
+    public List<Follower> R1;
+    public List<Follower> R2;
+    public List<Follower> L1;
+    public List<Follower> L2;
     public PathCreator[] rightLightPaths;
     public PathCreator[] leftLightPaths;
     public static TrafficLightManager instance;
@@ -38,6 +40,8 @@ public class TrafficLightManager : MonoBehaviour
     public bool isCanCreateAmbulance = false;
     private bool isCanCreatepojarniy = false;
     private bool isCanCreateMerc = false;
+    private bool isCanCreateCarR= true;
+    private bool isCanCreateCarL= true;
     public InputActionProperty triggerValue;
 	private void Awake()
 	{
@@ -50,102 +54,209 @@ public class TrafficLightManager : MonoBehaviour
             Destroy(this);
 		}
 	}
+    public void OnGameOver()
+    {
+
+        gameOverUI.SetActive(true);
+        audioSource.Play();
+        foreach (Follower item in R1)
+        {
+            item.isStopForEvery = true;
+        }
+        foreach (Follower item in R2)
+        {
+            item.isStopForEvery = true;
+        }
+        foreach (Follower item in L1)
+        {
+            item.isStopForEvery = true;
+        }
+        foreach (Follower item in L2)
+        {
+            item.isStopForEvery = true;
+        }
+
+    }
 	// Start is called before the first frame update
 	void Start()
     {
         StartCoroutine(TrafficLight());
-        StartCoroutine(CreateCarForRight());
-        StartCoroutine(CreateCarForLeft());
+        StartCoroutine(CreateCar());
+    }
+
+    IEnumerator CreateAmbulance()
+    {
+        yield return new WaitForSeconds(15f);
+        ambulance = Instantiate(ambulancePrefab);
+
+    }
+    IEnumerator CreatePojar()
+    {
+        yield return new WaitForSeconds(15f);
+        pojar = Instantiate(pojarPrefab);
+
+    }
+    IEnumerator CreateMers()
+    {
+        yield return new WaitForSeconds(15f);
+        merc = Instantiate(mercPrefab);
+        yield return new WaitForSeconds(1f);
+        police = Instantiate(policePrefab);
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (isCanCreateAmbulance && Checker.instance.state == PalkaState.top)
+        
+        // ambulance create
+        if (isCanCreateAmbulance && Checker.instance.state == PalkaState.top)
 		{
-            ambulance = Instantiate(ambulancePrefab);
+            StartCoroutine(CreateAmbulance());
             isCanCreateAmbulance=false;
 		}
+        // pojar create
         if (isCanCreatepojarniy && Checker.instance.state == PalkaState.top)
         {
-            pojar = Instantiate(pojarPrefab);
+            StartCoroutine(CreatePojar());
             isCanCreatepojarniy = false;
         }
+        //merc cerate
         if (isCanCreateMerc && Checker.instance.state == PalkaState.top)
         {
-            merc = Instantiate(mercPrefab);
+            StartCoroutine(CreateMers());
             isCanCreateMerc = false;
         }
         float value = triggerValue.action.ReadValue<float>();
-		foreach (Follower item in carListRight)
+		foreach (Follower item in R1)
 		{
             item.isRed = isRedForRight;
 		}
-        foreach (Follower item in carListLeft)
+        foreach (Follower item in R2)
+        {
+            item.isRed = isRedForRight;
+        }
+        foreach (Follower item in L1)
 		{
             item.isRed = isRedForLeft;
 		}
+        foreach (Follower item in L2)
+        {
+            item.isRed = isRedForLeft;
+        }
 
-		if (value>=0.8f)
+        if (value>=0.8f)
 		{
-            // R1 yonalishni ochish
-            if (GetRotation.instance.rotState == rotation.INH && Checker.instance.state == PalkaState.front)
+            // L1 va L2 yonalishni ochish
+            if (
+                (Checker.instance.rightRotState == RightRot.INH && CheckerLeft.instance.leftRotState == RightRot.IP)
+                ||
+                (Checker.instance.rightRotState == RightRot.IP && CheckerLeft.instance.leftRotState == RightRot.INH)
+                )
             {
-                ambulance.isRed = false;
-                foreach (Follower item in R1_1)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-                foreach (Follower item in R1_2)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-            }
-            // R2 yonalishni ochish
-            if (GetRotation.instance.rotState == rotation.IP && Checker.instance.state == PalkaState.front)
-            {
-                foreach (Follower item in R2_1)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-                foreach (Follower item in R2_2)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-            }
-            // L1 yonalishni ochish
-            if (GetRotation.instance.rotState == rotation.HY && Checker.instance.state == PalkaState.front)
-            {
-                pojar.isRed = false;
-                foreach (Follower item in L1_1)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-                foreach (Follower item in L1_2)
-                {
-                    item.isStopForEvery = false;
-                    item.isRed = false;
-                }
-            }
-            // L2 yonalishni ochish
-            if (GetRotation.instance.rotState == rotation.MP && Checker.instance.state == PalkaState.front)
-            {
-                foreach (Follower item in L2_1)
+                if(merc!=null)
                 {
                     merc.isRed = false;
-                    item.isStopForEvery = false;
-                    item.isRed = false;
+                    police.isRed = false;
                 }
-                foreach (Follower item in L2_2)
+                if (pojar != null)
+                {
+                    pojar.isRed = false;
+                }
+                foreach (Follower item in L1)
                 {
                     item.isStopForEvery = false;
                     item.isRed = false;
                 }
+                foreach (Follower item in L2)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+
+            }
+            // R1 va R2 yonalishni ochish
+            if (
+               (Checker.instance.rightRotState == RightRot.HY && CheckerLeft.instance.leftRotState == RightRot.MP)
+               ||
+               (Checker.instance.rightRotState == RightRot.MP && CheckerLeft.instance.leftRotState == RightRot.HY)
+               )
+            {
+                if (ambulance != null)
+                {
+                    ambulance.isRed = false;
+                }
+                foreach (Follower item in R1)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+                foreach (Follower item in R2)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+
+            }
+
+
+
+            // R1 yonalishni ochish
+            if (Checker.instance.rightRotState == RightRot.INH && CheckerLeft.instance.leftRotState == RightRot.none)
+            {
+                if(ambulance !=null)
+                {
+                    ambulance.isRed = false;
+                }
+                foreach (Follower item in R1)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+                
+            }
+            // R2 yonalishni ochish
+            if (Checker.instance.rightRotState == RightRot.IP && CheckerLeft.instance.leftRotState == RightRot.none)
+            {
+                foreach (Follower item in R2)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+               
+            }
+            // L1 yonalishni ochish
+            if (Checker.instance.rightRotState == RightRot.HY && CheckerLeft.instance.leftRotState == RightRot.none)
+            {
+                if (pojar != null)
+                {
+                   pojar.isRed = false;
+                }
+                foreach (Follower item in L1)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+                
+            }
+            // L2 yonalishni ochish
+            if (Checker.instance.rightRotState == RightRot.MP && CheckerLeft.instance.leftRotState == RightRot.none)
+            {
+                if (merc != null)
+                {
+                    merc.isRed = false;
+
+                }
+                if (police != null)
+                {
+                    police.isRed = false;
+
+                }
+                foreach (Follower item in L2)
+                {
+                    item.isStopForEvery = false;
+                    item.isRed = false;
+                }
+                
             }
         }
     }
@@ -206,81 +317,65 @@ public class TrafficLightManager : MonoBehaviour
         }
         
 	}
-    public IEnumerator CreateCarForRight()
+    
+    public IEnumerator CreateCar()
 	{
-        int counter = 0;
-		while (counter<12)
-		{
-            for (int i = 0; i < rightLightPaths.Length; i++)
-            {
-                int indexR = Random.Range(0, 3);
-                int indexL = Random.Range(3, 6);
-
-                Follower car = Instantiate(carPrefab);
-                car.creator = rightLightPaths[indexR];
-				if (indexR == 2 || indexR == 1)
-				{
-                    R1_2.Add(car);
-				}
-                if(indexR == 0)
-				{
-                    R1_1.Add(car);
-				}
-                carListRight.Add(car);
-                Follower car2 = Instantiate(carPrefab);
-                car2.creator = rightLightPaths[indexL];
-                if (indexL == 4 || indexL == 5)
-                {
-                    R2_2.Add(car2);
-                }
-                if (indexL == 3)
-                {
-                    R2_1.Add(car2);
-                }
-                carListRight.Add(car2);
-                
-                yield return new WaitForSeconds(1.5f);
-                counter++;
-            }
-        }
-	}
-    public IEnumerator CreateCarForLeft()
-    {
-        int counter = 0;
-        while (counter < 12)
+        while (true)
         {
-            for (int i = 0; i < rightLightPaths.Length; i++)
+            if (countCarMP < 15)
             {
-                int indexR = Random.Range(0, 3);
-                int indexL = Random.Range(3, 6);
-
+                int indexMP = Random.Range(3, 6);
                 Follower car = Instantiate(carPrefab);
-                car.creator = leftLightPaths[indexR];
-                if (indexR == 2 || indexR == 1)
+                car.creator = rightLightPaths[indexMP];
+                car.name = "R2";
+                if (R2.Count>0)
                 {
-                    L1_2.Add(car);
+                    car.isStopForEvery = R2[0].isStopForEvery;
                 }
-                if (indexR == 0)
-                {
-                    L1_1.Add(car);
-                }
-                carListLeft.Add(car);
-                Follower car2 = Instantiate(carPrefab);
-                car2.creator = leftLightPaths[indexL];
-                if (indexR == 2 || indexR == 1)
-                {
-                    L2_2.Add(car2);
-                }
-                if (indexR == 0)
-                {
-                    L2_1.Add(car2);
-                }
-                carListLeft.Add(car2);
-
-                yield return new WaitForSeconds(1.5f);
-                counter++;
+                R2.Add(car);
+                countCarMP++;
             }
+            if (countCarHY < 15)
+            {
+                int indexHY = Random.Range(0, 3);
+                Follower car = Instantiate(carPrefab);
+                car.creator = rightLightPaths[indexHY];
+                car.name = "R1";
+                if (R1.Count > 0)
+                {
+                    car.isStopForEvery = R1[0].isStopForEvery;
+                }
+                R1.Add(car);
+                countCarHY++;
+            }
+            if (countCarINH < 15)
+            {
+                int indexINH = Random.Range(3, 6);
+                Follower car = Instantiate(carPrefab);
+                car.creator = leftLightPaths[indexINH];
+                car.name = "L2";
+                if (L2.Count > 0)
+                {
+                    car.isStopForEvery = L2[0].isStopForEvery;
+                }
+                L2.Add(car);
+                countCarINH++;
+            }
+            if (countCarIP < 15)
+            {
+                int indexIP = Random.Range(0, 3);
+                Follower car = Instantiate(carPrefab);
+                car.creator = leftLightPaths[indexIP];
+                car.name = "L1";
+                if (L1.Count > 0)
+                {
+                    car.isStopForEvery = L1[0].isStopForEvery;
+                }
+                L1.Add(car);
+                countCarIP++;
+            }
+            yield return new WaitForSeconds(1.5f);
         }
     }
-    
+
 }
