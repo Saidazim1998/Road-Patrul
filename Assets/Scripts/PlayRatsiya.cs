@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayRatsiya : MonoBehaviour
 {
+    public GameObject player;
+    public Transform chorraxa;
+    public Transform yolCheti;
     public AudioClip ambulance;
     public AudioClip fire;
     public AudioClip specialCar;
@@ -13,6 +16,14 @@ public class PlayRatsiya : MonoBehaviour
     void Start()
     {
         
+    }
+    public void SetPlayerCenter()
+    {
+        player.transform.position = chorraxa.position;
+    }
+    public void SetPlayerChet()
+    {
+        player.transform.position = yolCheti.position;
     }
 
     // Update is called once per frame

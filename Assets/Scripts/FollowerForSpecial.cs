@@ -9,7 +9,7 @@ public class FollowerForSpecial : MonoBehaviour
     public PathCreator creator;
     public string name = "";
     public bool isEnter = false;
-    public float speed = 5f;
+    public float speed = 2f;
     float distanceTravelled;
     [SerializeField]
     public float limitDistance = 0.027f;
@@ -19,9 +19,11 @@ public class FollowerForSpecial : MonoBehaviour
     public bool isStop = false;
     public bool isRed = true;
     public bool isStopForEvery = false;
+    public bool isFinish = false;
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(StartTime());
         isRed = true;
 		if (name == "a")
 		{
@@ -69,17 +71,26 @@ public class FollowerForSpecial : MonoBehaviour
                 }
                 else
                 {
-                    speed = 5;
+                    speed = 2;
                 }
             }
         }
         else
         {
-            speed = 5;
+            speed = 2;
         }
         distanceTravelled += speed * Time.deltaTime;
         transform.position = creator.path.GetPointAtDistance(distanceTravelled);
         transform.rotation = creator.path.GetRotationAtDistance(distanceTravelled);
+    }
+    IEnumerator StartTime()
+    {
+        yield return new WaitForSeconds(15f);
+        if (!isFinish)
+        {
+            Debug.Log("GameOver");
+            TrafficLightManager.instance.OnGameOver();
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -87,6 +98,7 @@ public class FollowerForSpecial : MonoBehaviour
         {
             isEnter = false;
         }
+       
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -94,16 +106,12 @@ public class FollowerForSpecial : MonoBehaviour
         {
             isEnter = true;
         }
+        if (other.CompareTag("chorraxa"))
+        {
+            isFinish = true;
+        }
         if (other.CompareTag("destroy"))
         {
-            foreach (Follower item in TrafficLightManager.instance.carListRight)
-            {
-                item.isStopForEvery = false;
-            }
-            foreach (Follower item in TrafficLightManager.instance.carListLeft)
-            {
-                item.isStopForEvery = false;
-            }
             Checker.instance.winning.Play();
             Destroy(gameObject);
         }
