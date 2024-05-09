@@ -62,28 +62,21 @@ public class Checker : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("MP"))
                 {
                     rightRotState = RightRot.MP;
-                    Debug.Log("MP");
                 }
                 else if (hit.collider.gameObject.CompareTag("INH"))
                 {
                     rightRotState = RightRot.INH;
 
-
-                    Debug.Log("INH");
                 }
                 else if (hit.collider.gameObject.CompareTag("IP"))
                 {
                     rightRotState = RightRot.IP;
 
-
-                    Debug.Log("IP");
                 }
                 else if (hit.collider.gameObject.CompareTag("HY"))
                 {
                     rightRotState = RightRot.HY;
 
-
-                    Debug.Log("HY");
                 }
                 else
                 {
@@ -125,6 +118,22 @@ public class Checker : MonoBehaviour
             {
                 item.isStopForEvery = false;
             }
+            if (TrafficLightManager.instance.ambulance != null)
+            {
+                TrafficLightManager.instance.ambulance.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.pojar != null)
+            {
+                TrafficLightManager.instance.pojar.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.police != null)
+            {
+                TrafficLightManager.instance.police.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.merc != null)
+            {
+                TrafficLightManager.instance.merc.isStopForEvery = false;
+            }
         }
 	}
 	private void OnTriggerStay(Collider other)
@@ -147,6 +156,22 @@ public class Checker : MonoBehaviour
             foreach (Follower item in TrafficLightManager.instance.L2)
             {
                 item.isStopForEvery = true;
+            }
+            if (TrafficLightManager.instance.ambulance!=null)
+            {
+                TrafficLightManager.instance.ambulance.isStopForEvery = true;
+            }
+            if (TrafficLightManager.instance.pojar != null)
+            {
+                TrafficLightManager.instance.pojar.isStopForEvery = true;
+            }
+            if (TrafficLightManager.instance.police != null)
+            {
+                TrafficLightManager.instance.police.isStopForEvery = true;
+            }
+            if (TrafficLightManager.instance.merc != null)
+            {
+                TrafficLightManager.instance.merc.isStopForEvery = true;
             }
         }
 	}
@@ -178,6 +203,22 @@ public class Checker : MonoBehaviour
             foreach (Follower item in TrafficLightManager.instance.L2)
             {
                 item.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.ambulance != null)
+            {
+                TrafficLightManager.instance.ambulance.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.pojar != null)
+            {
+                TrafficLightManager.instance.pojar.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.police != null)
+            {
+                TrafficLightManager.instance.police.isStopForEvery = false;
+            }
+            if (TrafficLightManager.instance.merc != null)
+            {
+                TrafficLightManager.instance.merc.isStopForEvery = false;
             }
         }
 	}

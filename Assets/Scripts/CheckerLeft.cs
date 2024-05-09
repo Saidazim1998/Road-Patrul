@@ -9,7 +9,7 @@ public class CheckerLeft : MonoBehaviour
     public InputActionProperty triggerValue;
 
     public RightRot leftRotState;
-
+    bool canCheck = false;
     public static CheckerLeft instance;
     private void Awake()
     {
@@ -34,6 +34,7 @@ public class CheckerLeft : MonoBehaviour
         float value = triggerValue.action.ReadValue<float>();
         if (value > 0.8f)
         {
+            canCheck = true;
             RaycastHit hit;
 
             Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -43,28 +44,24 @@ public class CheckerLeft : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("MP"))
                 {
                     leftRotState = RightRot.MP;
-                    Debug.Log("MP");
                 }
                 else if (hit.collider.gameObject.CompareTag("INH"))
                 {
                     leftRotState = RightRot.INH;
 
 
-                    Debug.Log("INH");
                 }
                 else if (hit.collider.gameObject.CompareTag("IP"))
                 {
                     leftRotState = RightRot.IP;
 
 
-                    Debug.Log("IP");
                 }
                 else if (hit.collider.gameObject.CompareTag("HY"))
                 {
                     leftRotState = RightRot.HY;
 
 
-                    Debug.Log("HY");
                 }
                 else
                 {
@@ -75,8 +72,18 @@ public class CheckerLeft : MonoBehaviour
         }
         else
         {
-            leftRotState = RightRot.none;
+            if (canCheck)
+            {
+                StartCoroutine(checkState());
+                canCheck = false;
+            }
         }
     }
-        
+    IEnumerator checkState()
+    {
+        yield return new WaitForSeconds(1f);
+        leftRotState = RightRot.none;
+
+    }
+
 }

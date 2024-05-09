@@ -24,11 +24,15 @@ public class TrafficLightManager : MonoBehaviour
     public FollowerForSpecial ambulancePrefab;
     public FollowerForSpecial pojarPrefab;
     public FollowerForSpecial mercPrefab;
+    [HideInInspector]
     public FollowerForSpecial policePrefab;
-    FollowerForSpecial ambulance;
-    FollowerForSpecial pojar;
-    FollowerForSpecial merc;
-    FollowerForSpecial police;
+    [HideInInspector]
+    public FollowerForSpecial ambulance;
+    [HideInInspector]
+    public FollowerForSpecial pojar;
+    [HideInInspector]
+    public FollowerForSpecial merc;
+    public FollowerForSpecial police;
     public List<Follower> R1;
     public List<Follower> R2;
     public List<Follower> L1;
@@ -40,6 +44,8 @@ public class TrafficLightManager : MonoBehaviour
     public bool isCanCreateAmbulance = false;
     private bool isCanCreatepojarniy = false;
     private bool isCanCreateMerc = false;
+    public bool isGameOver= false;
+    bool go = false;
     private bool isCanCreateCarR= true;
     private bool isCanCreateCarL= true;
     public InputActionProperty triggerValue;
@@ -56,25 +62,45 @@ public class TrafficLightManager : MonoBehaviour
 	}
     public void OnGameOver()
     {
-
-        gameOverUI.SetActive(true);
-        audioSource.Play();
-        foreach (Follower item in R1)
+        if (go)
         {
-            item.isStopForEvery = true;
+            gameOverUI.SetActive(true);
+            audioSource.Play();
+            go = false;
         }
-        foreach (Follower item in R2)
-        {
-            item.isStopForEvery = true;
-        }
-        foreach (Follower item in L1)
-        {
-            item.isStopForEvery = true;
-        }
-        foreach (Follower item in L2)
-        {
-            item.isStopForEvery = true;
-        }
+            isGameOver = true;
+            foreach (Follower item in R1)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in R2)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in L1)
+            {
+                item.isStopForEvery = true;
+            }
+            foreach (Follower item in L2)
+            {
+                item.isStopForEvery = true;
+            }
+            if (ambulance != null)
+            {
+                ambulance.isStopForEvery = true;
+            }
+            if (pojar != null)
+            {
+                pojar.isStopForEvery = true;
+            }
+            if (police != null)
+            {
+                police.isStopForEvery = true;
+            }
+            if (merc != null)
+            {
+                merc.isStopForEvery = true;
+            }
 
     }
 	// Start is called before the first frame update

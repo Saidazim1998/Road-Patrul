@@ -50,28 +50,56 @@ public class Follower : MonoBehaviour
 			{
 				isStop = false;
 			}
-        }
-        if ((isRed || isStopForEvery) && !isCrossed)
-		{
-			if (isEnter)
-			{
-                speed = 0;
+
+            if (Vector3.Distance(origin, hit.point) < 3)
+            {
+                if((name=="R1" || name == "R2"))
+                {
+                    if (hit.collider.gameObject.GetComponent<Follower>().name == "L1" || hit.collider.gameObject.GetComponent<Follower>().name == "L2")
+                    {
+                        TrafficLightManager.instance.OnGameOver();
+                        print("Game Over");
+                    }
+                }
+                if ((name == "L1" || name == "L2"))
+                {
+                    if (hit.collider.gameObject.GetComponent<Follower>().name == "R1" || hit.collider.gameObject.GetComponent<Follower>().name == "R2")
+                    {
+                        TrafficLightManager.instance.OnGameOver();
+
+                        print("Game Over");
+                    }
+                }
             }
-			else
-			{
-                if (isStop)
+        }
+        if (!TrafficLightManager.instance.isGameOver)
+        {
+            if ((isRed || isStopForEvery) && !isCrossed)
+            {
+                if (isEnter)
                 {
                     speed = 0;
                 }
-				else
-				{
-                    speed = 2;
-				}
+                else
+                {
+                    if (isStop)
+                    {
+                        speed = 0;
+                    }
+                    else
+                    {
+                        speed = 2;
+                    }
+                }
             }
-		}
-		else
-		{
-            speed = 2;
+            else
+            {
+                speed = 2;
+            }
+        }
+        else
+        {
+            speed = 0;
         }
         distanceTravelled+=speed*Time.deltaTime;
         transform.position = creator.path.GetPointAtDistance(distanceTravelled);
@@ -93,6 +121,7 @@ public class Follower : MonoBehaviour
         if (other.CompareTag("chorraxa"))
         {
             isCrossed = true;
+           
             if(name == "R1")
             {
                 --TrafficLightManager.instance.countCarHY;

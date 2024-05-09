@@ -57,27 +57,34 @@ public class FollowerForSpecial : MonoBehaviour
                 isStop = false;
             }
         }
-        if (isRed || isStopForEvery)
+       if(!TrafficLightManager.instance.isGameOver)
         {
-            if (isEnter)
+            if (isRed || isStopForEvery)
             {
-                speed = 0;
-            }
-            else
-            {
-                if (isStop)
+                if (isEnter)
                 {
                     speed = 0;
                 }
                 else
                 {
-                    speed = 2;
+                    if (isStop)
+                    {
+                        speed = 0;
+                    }
+                    else
+                    {
+                        speed = 2;
+                    }
                 }
+            }
+            else
+            {
+                speed = 2;
             }
         }
         else
         {
-            speed = 2;
+            speed = 0;
         }
         distanceTravelled += speed * Time.deltaTime;
         transform.position = creator.path.GetPointAtDistance(distanceTravelled);
