@@ -21,6 +21,7 @@ public enum RightRot
 public class Checker : MonoBehaviour
 {
 	public AudioSource winning;
+	public GameObject winningUI;
     public InputActionProperty triggerValue;
 	public LayerMask layerMask;
     public PalkaState state;
@@ -46,8 +47,19 @@ public class Checker : MonoBehaviour
         state = PalkaState.idle;
 	}
 
-	// Update is called once per frame
-	void Update()
+    public IEnumerator Winning()
+    {
+        if(!TrafficLightManager.instance.isGameOver) 
+        {
+            winningUI.SetActive(true);
+            winning.Play();
+        }
+        yield return new WaitForSeconds(5f);
+        winningUI.SetActive(false);
+
+    }
+    // Update is called once per frame
+    void Update()
 	{
         float value = triggerValue.action.ReadValue<float>();
 		if (value > 0.8f)

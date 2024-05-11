@@ -9,6 +9,9 @@ public class TriggerInputDetector : MonoBehaviour
     public GameObject menu;
     private InputData _inputData;
     private bool isActive = false;
+    public GameObject player;
+    [SerializeField]
+    public float offset;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +30,9 @@ public class TriggerInputDetector : MonoBehaviour
         {
             if (Abutton)
             {
-            menu.SetActive(true);
-               
+                menu.SetActive(true);
+                //menu.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z+offset);
+                menu.transform.rotation = Quaternion.Euler(0f,player.transform.eulerAngles.y,0f);
             }
         }
     }

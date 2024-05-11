@@ -119,7 +119,7 @@ public class FollowerForSpecial : MonoBehaviour
         }
         if (other.CompareTag("destroy"))
         {
-            Checker.instance.winning.Play();
+            Checker.instance.Winning();
             Destroy(gameObject);
         }
         if (other.CompareTag("Car"))
