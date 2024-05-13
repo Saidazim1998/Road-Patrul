@@ -92,7 +92,8 @@ public class FollowerForSpecial : MonoBehaviour
     }
     IEnumerator StartTime()
     {
-        yield return new WaitForSeconds(15f);
+        print("start");
+        yield return new WaitForSeconds(20f);
         if (!isFinish)
         {
             Debug.Log("GameOver");
@@ -119,8 +120,8 @@ public class FollowerForSpecial : MonoBehaviour
         }
         if (other.CompareTag("destroy"))
         {
-            Checker.instance.Winning();
-            Destroy(gameObject);
+           StartCoroutine(Checker.instance.Winning());
+            Destroy(gameObject,4f);
         }
         if (other.CompareTag("Car"))
         {
