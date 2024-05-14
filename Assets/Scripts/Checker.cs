@@ -22,6 +22,7 @@ public class Checker : MonoBehaviour
 {
 	public AudioSource winning;
 	public GameObject winningUI;
+	public GameObject player;
     public InputActionProperty triggerValue;
 	public LayerMask layerMask;
     public PalkaState state;
@@ -52,9 +53,11 @@ public class Checker : MonoBehaviour
         if(!TrafficLightManager.instance.isGameOver) 
         {
             winningUI.SetActive(true);
+            winningUI.transform.rotation = Quaternion.Euler(0f, player.transform.eulerAngles.y, 0f);
+
             winning.Play();
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         winningUI.SetActive(false);
 
     }

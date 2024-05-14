@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using UnityEngine.InputSystem;
+using UnityEditor;
 public class TrafficLightManager : MonoBehaviour
 {
+    public Transform spawnPos;
     public int countCarMP = 0;
     public int countCarINH = 0;
     public int countCarHY = 0;
@@ -21,17 +23,17 @@ public class TrafficLightManager : MonoBehaviour
     [SerializeField]
     public bool isRedForLeft;
     public Follower carPrefab;
-    public FollowerForSpecial ambulancePrefab;
-    public FollowerForSpecial pojarPrefab;
-    public FollowerForSpecial mercPrefab;
-    [HideInInspector]
-    public FollowerForSpecial policePrefab;
+    public GameObject ambulancePrefab;
+    public GameObject pojarPrefab;
+    public GameObject mercPrefab;
+    public GameObject policePrefab;
     [HideInInspector]
     public FollowerForSpecial ambulance;
     [HideInInspector]
     public FollowerForSpecial pojar;
     [HideInInspector]
     public FollowerForSpecial merc;
+    [HideInInspector]
     public FollowerForSpecial police;
     public List<Follower> R1;
     public List<Follower> R2;
@@ -45,7 +47,7 @@ public class TrafficLightManager : MonoBehaviour
     private bool isCanCreatepojarniy = false;
     private bool isCanCreateMerc = false;
     public bool isGameOver= false;
-    bool go = false;
+    bool go = true;
     private bool isCanCreateCarR= true;
     private bool isCanCreateCarL= true;
     public InputActionProperty triggerValue;
@@ -64,7 +66,10 @@ public class TrafficLightManager : MonoBehaviour
     {
         if (go)
         {
+            GameObject player = GetComponent<TriggerInputDetector>().player;
             gameOverUI.SetActive(true);
+            gameOverUI.transform.rotation = Quaternion.Euler(0f, player.transform.eulerAngles.y, 0f);
+
             audioSource.Play();
             go = false;
         }
@@ -103,8 +108,9 @@ public class TrafficLightManager : MonoBehaviour
             }
 
     }
-	// Start is called before the first frame update
-	void Start()
+
+    // Start is called before the first frame update
+    void Start()
     {
         StartCoroutine(TrafficLight());
         StartCoroutine(CreateCar());
@@ -113,21 +119,21 @@ public class TrafficLightManager : MonoBehaviour
     IEnumerator CreateAmbulance()
     {
         yield return new WaitForSeconds(15f);
-        ambulance = Instantiate(ambulancePrefab);
+        ambulance = Instantiate(ambulancePrefab, spawnPos.position,Quaternion.identity).GetComponent<FollowerForSpecial>();
 
     }
     IEnumerator CreatePojar()
     {
         yield return new WaitForSeconds(15f);
-        pojar = Instantiate(pojarPrefab);
+        pojar = Instantiate(pojarPrefab, spawnPos.position, Quaternion.identity).GetComponent<FollowerForSpecial>();
 
     }
     IEnumerator CreateMers()
     {
         yield return new WaitForSeconds(15f);
-        merc = Instantiate(mercPrefab);
+        merc = Instantiate(mercPrefab, spawnPos.position, Quaternion.identity).GetComponent<FollowerForSpecial>();
         yield return new WaitForSeconds(1f);
-        police = Instantiate(policePrefab);
+        police = Instantiate(policePrefab, spawnPos.position, Quaternion.identity).GetComponent<FollowerForSpecial>();
     }
 
     // Update is called once per frame
@@ -182,11 +188,14 @@ public class TrafficLightManager : MonoBehaviour
                 if(merc!=null)
                 {
                     merc.isRed = false;
+                    merc.isStopForEvery = false;
                     police.isRed = false;
+                    police.isStopForEvery = false;
                 }
                 if (pojar != null)
                 {
                     pojar.isRed = false;
+                    pojar.isStopForEvery = false;
                 }
                 foreach (Follower item in L1)
                 {
@@ -210,6 +219,7 @@ public class TrafficLightManager : MonoBehaviour
                 if (ambulance != null)
                 {
                     ambulance.isRed = false;
+                    ambulance.isStopForEvery= false;
                 }
                 foreach (Follower item in R1)
                 {
@@ -232,6 +242,8 @@ public class TrafficLightManager : MonoBehaviour
                 if(ambulance !=null)
                 {
                     ambulance.isRed = false;
+                    ambulance.isStopForEvery = false;
+
                 }
                 foreach (Follower item in R1)
                 {
@@ -256,6 +268,7 @@ public class TrafficLightManager : MonoBehaviour
                 if (pojar != null)
                 {
                    pojar.isRed = false;
+                   pojar.isStopForEvery = false;
                 }
                 foreach (Follower item in L1)
                 {
@@ -270,11 +283,13 @@ public class TrafficLightManager : MonoBehaviour
                 if (merc != null)
                 {
                     merc.isRed = false;
+                    merc.isStopForEvery = false;
 
                 }
                 if (police != null)
                 {
                     police.isRed = false;
+                    police.isStopForEvery = false;
 
                 }
                 foreach (Follower item in L2)
@@ -343,7 +358,6 @@ public class TrafficLightManager : MonoBehaviour
         }
         
 	}
-    
     public IEnumerator CreateCar()
 	{
         while (true)
@@ -351,7 +365,7 @@ public class TrafficLightManager : MonoBehaviour
             if (countCarMP < 15)
             {
                 int indexMP = Random.Range(3, 6);
-                Follower car = Instantiate(carPrefab);
+                Follower car = Instantiate(carPrefab, spawnPos.position, Quaternion.identity).GetComponent<Follower>();
                 car.creator = rightLightPaths[indexMP];
                 car.name = "R2";
                 if (R2.Count>0)
